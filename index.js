@@ -17,9 +17,10 @@ const GEMINI_MODEL = "gemini-2.5-flash";
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.post("/generate-text", async (req, res) => {
+app.post("/generate-text", upload.none(), async (req, res) => {
   const { prompt } = req.body;
 
   if (!prompt) {
